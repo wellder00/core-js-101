@@ -65,10 +65,10 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  return value.replace(/Hello, |!/g, '').trim();
 }
-
+extractNameFromTemplate('Hello, Chuck Norris!');
 
 /**
  * Returns a first char of the given string.
@@ -80,10 +80,10 @@ function extractNameFromTemplate(/* value */) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value.charAt(0);
 }
-
+getFirstChar('John Doe');
 /**
  * Removes a leading and trailing whitespace characters from string.
  *
@@ -95,10 +95,10 @@ function getFirstChar(/* value */) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
-
+removeLeadingAndTrailingWhitespaces('\tHello, World!');
 /**
  * Returns a string that repeated the specified number of times.
  *
@@ -110,10 +110,10 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-function repeatString(/* value, count */) {
-  throw new Error('Not implemented');
+function repeatString(value, count) {
+  return value.repeat(count);
 }
-
+repeatString('A', 5);
 /**
  * Remove the first occurrence of string inside another string
  *
@@ -126,10 +126,10 @@ function repeatString(/* value, count */) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  return str.replace(value, '');
 }
-
+removeFirstOccurrences('To be or not to be', 'not');
 /**
  * Remove the first and last angle brackets from tag string
  *
@@ -141,11 +141,11 @@ function removeFirstOccurrences(/* str, value */) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.replace(/<|>/g, '');
 }
 
-
+unbracketTag('<div>');
 /**
  * Converts all characters of the specified string into the upper case
  *
@@ -156,10 +156,10 @@ function unbracketTag(/* str */) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(/* str */) {
-  throw new Error('Not implemented');
+function convertToUpperCase(str) {
+  return str.toUpperCase();
 }
-
+convertToUpperCase('Thunderstruck');
 /**
  * Extracts e-mails from single string with e-mails list delimeted by semicolons
  *
@@ -175,10 +175,10 @@ function convertToUpperCase(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
-
+extractEmails('angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com');
 /**
  * Returns the string representation of rectangle with specified width and height
  * using pseudograhic chars
@@ -202,10 +202,13 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const first = `┌${'─'.repeat(width - 2)}┐\n`;
+  const middle = `│${' '.repeat(width - 2)}│\n`;
+  const last = `└${'─'.repeat(width - 2)}┘\n`;
+  return (first + middle.repeat(height - 2) + last);
 }
-
+getRectangleString(6, 4);
 
 /**
  * Encode specified string with ROT13 cipher
@@ -223,10 +226,20 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const ROT13 = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  let string = '';
+  for (let i = 0; i < str.length; i += 1) {
+    const el = str[i];
+    if (alphabet.indexOf(el) !== -1) {
+      string += ROT13[alphabet.indexOf(el)];
+    } else string += el;
+  }
+  return string;
 }
 
+encodeToRot13('Gb trg gb gur bgure fvqr!');
 /**
  * Returns true if the value is string; otherwise false.
  * @param {string} value
