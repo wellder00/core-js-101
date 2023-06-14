@@ -319,10 +319,10 @@ getSecondItems(['a', 'b', 'c', null]);
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-  return arr.reduce((acc, value, index) => [
-    ...acc,
-    ...Array(index + 1).fill(value),
-  ], []);
+  return arr.reduce(
+    (acc, value, index) => [...acc, ...Array(index + 1).fill(value)],
+    [],
+  );
 }
 propagateItemsByPositionIndex(['a', 'b', 'c', null]);
 /**
@@ -555,8 +555,13 @@ function distinct(/* arr */) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  return array.reduce((acc, value) => {
+    if (acc.has(keySelector(value))) {
+      acc.get(keySelector(value)).push(valueSelector(value));
+    } else acc.set(keySelector(value), [valueSelector(value)]);
+    return acc;
+  }, new Map());
 }
 
 /**
@@ -588,10 +593,11 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  const a = arr.flat(Infinity);
+  return a[indexes.reduce((acc, el) => acc + el)];
 }
-
+getElementByIndexes([[[1, 2, 3]]], [0, 0, 1]);
 /**
  * Swaps the head and tail of the specified array:
  * the head (first half) of array move to the end, the tail (last half) move to the start.
