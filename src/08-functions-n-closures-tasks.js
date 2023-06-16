@@ -24,7 +24,7 @@
  *
  */
 function getComposition(f, g) {
-  return function (x) {
+  return function composedFunction(x) {
     return f(g(x));
   };
 }
@@ -47,8 +47,8 @@ function getComposition(f, g) {
  *
  */
 function getPowerFunction(exponent) {
-  return function (x) {
-    return (x ** exponent);
+  return function powerFunction(x) {
+    return x ** exponent;
   };
 }
 
