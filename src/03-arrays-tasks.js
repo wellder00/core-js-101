@@ -338,10 +338,10 @@ propagateItemsByPositionIndex(['a', 'b', 'c', null]);
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  return arr.slice(-3).reverse();
 }
-
+get3TopItems([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 /**
  * Returns the number of positive numbers from specified array
  *
@@ -355,10 +355,11 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  const newArr = arr.filter((val) => typeof val === 'number' && val > 0);
+  return newArr.length;
 }
-
+getPositivesCount([1, 2, 3]);
 /**
  * Sorts digit names
  *
@@ -372,10 +373,23 @@ function getPositivesCount(/* arr */) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
-}
+function sortDigitNamesByNumericOrder(arr) {
+  const digit = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+  };
 
+  return arr.sort((a, b) => digit[a] - digit[b]);
+}
+// sortDigitNamesByNumericOrder(['nine', 'eight', 'nine', 'eight']);
 /**
  * Returns the sum of all items in the specified array of numbers
  *
@@ -388,10 +402,10 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  throw new Error('Not implemented');
+function getItemsSum(arr) {
+  return arr.reduce((acc, val) => acc + val, 0);
 }
-
+getItemsSum([1, 10, 100, 1000]);
 /**
  * Returns the number of all falsy value in the specified array
  *
